@@ -1,0 +1,19 @@
+# .env file for DEVOPS project
+
+# Application settings
+APP_ENV=development
+APP_DEBUG=true
+APP_PORT=8000
+
+# Database configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=devops_db
+DB_USER=devops_user
+DB_PASSWORD=your_password_here
+
+# Secret keys
+SECRET_KEY=your_secret_key_here
+
+# Other environment variables
+LOG_LEVEL=info
