@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile
     container_name: app
     ports:
-      - '3100:3000'
+      - '5273:5173'
