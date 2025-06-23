@@ -8,3 +8,4 @@ services:
     container_name: app
     ports:
       - '5273:5173'
+
