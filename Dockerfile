@@ -13,16 +13,11 @@ RUN npm install
 # Copy the rest of the code
 COPY app/ .
 
-# Build the Vite app
-RUN npm run build
-
 # Expose the app port
 EXPOSE 5173
 
 # Start the app in development mode
 CMD ["npm", "run", "dev", "--", "--host"]
-
-File: Dockerfile
 
 
 
