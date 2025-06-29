@@ -16,7 +16,7 @@ def setup_driver():
 def test_homepage_loads():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         assert "Vite + React" in driver.title
         print("Test 1 Passed: Homepage loads successfully.")
@@ -26,7 +26,7 @@ def test_homepage_loads():
 def test_navigation_to_about():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         about_link = driver.find_element(By.LINK_TEXT, "About")
         about_link.click()
@@ -39,7 +39,7 @@ def test_navigation_to_about():
 def test_button_click():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         button = driver.find_element(By.TAG_NAME, "button")
         button.click()
@@ -52,7 +52,7 @@ def test_button_click():
 def test_input_field():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         input_box = driver.find_element(By.TAG_NAME, "input")
         input_box.send_keys("Test Input")
@@ -65,7 +65,7 @@ def test_input_field():
 def test_form_submission():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         input_box = driver.find_element(By.TAG_NAME, "input")
         input_box.send_keys("Sample Data")
@@ -80,7 +80,7 @@ def test_form_submission():
 def test_database_insertion():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         # Submit form or action that inserts into DB
         # This is a placeholder, adjust as needed
@@ -92,7 +92,7 @@ def test_database_insertion():
 def test_error_message():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         # Submit form without filling required fields
         submit_button = driver.find_element(By.TAG_NAME, "button")
@@ -106,7 +106,7 @@ def test_error_message():
 def test_page_refresh():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
         driver.refresh()
         time.sleep(2)
@@ -118,9 +118,9 @@ def test_page_refresh():
 def test_back_navigation():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
+        driver.get("http://52.3.59.229:5173")
         time.sleep(2)
-        driver.get("http://localhost:5173/anotherpage")  # Replace with actual page
+        driver.get("http://52.3.59.229:5173/anotherpage")  # Replace with actual page
         time.sleep(2)
         driver.back()
         time.sleep(2)
@@ -132,8 +132,8 @@ def test_back_navigation():
 def test_multiple_tabs():
     driver = setup_driver()
     try:
-        driver.get("http://localhost:5173")
-        driver.execute_script("window.open('http://localhost:5173', '_blank');")
+        driver.get("http://52.3.59.229:5173")
+        driver.execute_script("window.open('http://52.3.59.229:5173', '_blank');")
         time.sleep(2)
         assert len(driver.window_handles) == 2
         print("Test 10 Passed: Multiple tabs handled.")
