@@ -1,0 +1,23 @@
+# Use official Node.js image
+FROM node:24-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and lock file
+COPY app/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy backend source code
+COPY app/ .
+
+# Expose backend port
+EXPOSE 2000
+
+# Set environment variables (can be overridden by docker-compose)
+ENV PORT=2000
+
+# Start the backend
+CMD ["npm", "run", "start"]

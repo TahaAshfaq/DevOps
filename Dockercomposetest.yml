@@ -13,6 +13,8 @@ services:
         condition: service_healthy
       backend:
         condition: service_healthy
+      mongodb:
+        condition: service_healthy
     networks:
       - devops-net
 
@@ -32,22 +34,46 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
+    depends_on:
+      backend:
+        condition: service_healthy
 
   backend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.backend
     container_name: backend-app
     ports:
       - "2000:2000"
     networks:
       - devops-net
     command: ["npm", "run", "start"]
+    environment:
+      - PORT=2000
+      - MONGODB_URI=mongodb://mongodb:27017/devops
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
       interval: 10s
       timeout: 5s
       retries: 10
+    restart: on-failure
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - devops-net
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: on-failure
 
 networks:
   devops-net:
