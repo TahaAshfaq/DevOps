@@ -15,7 +15,7 @@ services:
 
   web:
     build:
-      context: ./app
+      context: 
     container_name: web-app
     ports:
       - "5173:5173"
