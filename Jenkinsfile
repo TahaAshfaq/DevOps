@@ -38,25 +38,17 @@ pipeline {
             // Wait for selenium-tests container to finish
             sh 'docker wait selenium-test-runner'
             // Print test logs to Jenkins console
-            sh 'docker logs selenium-test-runner'
+            sh 'docker logs selenium-test-runner || true'
             // Capture exit code and fail build if tests failed
             def exitCode = sh(script: 'docker inspect selenium-test-runner --format="{{.State.ExitCode}}"', returnStdout: true).trim()
             if (exitCode != '0') {
+                currentBuild.result = 'FAILURE'
+                env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. Some tests FAILED. Check Jenkins logs for details.'
                 error("Tests failed. Exit code: ${exitCode}")
+            } else {
+                env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. All tests PASSED. Check Jenkins logs for details.'
             }
             sh 'docker-compose -p $PROJECT_NAME -f Dockercomposetest.yml down -v --remove-orphans || true'
-        }
-      }
-      post {
-        success {
-          script {
-            env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. All tests PASSED. Check Jenkins logs for details.'
-          }
-        }
-        failure {
-          script {
-            env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. Some tests FAILED. Check Jenkins logs for details.'
-          }
         }
       }
     }
@@ -76,9 +68,12 @@ pipeline {
   }
   post {
         always {
-            mail to: "${GIT_COMMITTER_EMAIL}",
-                 subject: "DevOps Selenium Test Results",
-                 body: "${EMAIL_BODY}"
+            script {
+                def body = env.EMAIL_BODY ?: 'The Jenkins pipeline has finished running. Check Jenkins logs for details.'
+                mail to: "${GIT_COMMITTER_EMAIL}",
+                     subject: "DevOps Selenium Test Results",
+                     body: body
+            }
         }
     }
 }
