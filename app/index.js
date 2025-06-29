@@ -134,6 +134,11 @@ app.get("/api/users/name/:name", async (req, res) => {
   }
 });
 
+// Healthcheck endpoint for Docker Compose
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 /* =====================================================
    ============== CAR ROUTES (with image upload) ========
    ===================================================== */
