@@ -152,7 +152,7 @@
 #     test_back_navigation()
 #     test_multiple_tabs()
 
-
+#123
 
 
 
@@ -171,7 +171,7 @@ def setup_driver():
     options.add_argument('--disable-dev-shm-usage')
     return webdriver.Chrome(options=options)
 
-##TAHA
+
 def test_homepage_loads():
     driver = setup_driver()
     try:
