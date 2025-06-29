@@ -14,13 +14,14 @@ import Testimonial from "../components/UI/Testimonial";
 
 import BlogList from "../components/UI/BlogList";
 
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:2000";
+
 const Home = () => {
   const [cars, setCars] = useState([]);
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        // Replace "http://localhost:2000" with your backend server URL/port
-        const { data } = await axios.get("http://localhost:2000/api/cars");
+        const { data } = await axios.get(`${apiUrl}/api/cars`);
         setCars(data);
       } catch (error) {
         console.error("Error fetching cars:", error);

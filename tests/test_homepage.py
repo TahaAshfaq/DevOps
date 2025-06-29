@@ -178,7 +178,8 @@ def test_homepage_loads():
         driver.get(APP_URL)
         time.sleep(2)
         print("Page title:", driver.title)
-        assert "Vite + React" in driver.title
+        # Use a real, visible string from your homepage
+        assert "Moto-Zone Best Services" in driver.page_source
         print("Test 1 Passed: Homepage loads successfully.")
     except Exception as e:
         print(f"Test 1 Failed: Homepage did not load. Error: {e}")
@@ -190,11 +191,11 @@ def test_navigation_to_about():
     try:
         driver.get(APP_URL)
         time.sleep(2)
-        print("Page source:", driver.page_source)
         about_link = driver.find_element(By.LINK_TEXT, "About")
         about_link.click()
         time.sleep(2)
-        assert "About" in driver.page_source
+        # Use a real, visible string from your About page
+        assert "We Are Committed To Provide Safe Ride Solutions" in driver.page_source
         print("Test 2 Passed: Navigation to About page successful.")
     except Exception as e:
         print(f"Test 2 Failed: Navigation to About page failed. Error: {e}")

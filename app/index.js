@@ -12,6 +12,9 @@ const app = express();
 // Use 5173 or any free port
 const port = process.env.PORT || 2000;
 
+// Use VITE_API_URL for backend API
+const API_URL = process.env.VITE_API_URL || "http://localhost:2000";
+
 /* -----------------------------------------------------
    1) FIX __dirname for ES modules (so we can serve static files)
 ----------------------------------------------------- */
