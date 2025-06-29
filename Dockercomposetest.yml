@@ -4,7 +4,7 @@ services:
   selenium-tests:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.test
     container_name: selenium-test-runner
     volumes:
       - ./tests:/tests
