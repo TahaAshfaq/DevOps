@@ -22,7 +22,6 @@ EXPOSE 5173
 # Start the app in development mode
 CMD ["npm", "run", "dev", "--", "--host"]
 
-File: Dockerfile
 
 
 
