@@ -13,6 +13,19 @@ pipeline {
         }
       }
     }
+
+    stage('Extract Committer Email') {
+      steps {
+        dir('part2') {
+          script {
+            env.GIT_COMMITTER_EMAIL = sh(
+              script: "git log -1 --pretty=format:'%ae'",
+              returnStdout: true
+            ).trim()
+          }
+        }
+      }
+    }
     
     stage('Test') {
       steps {
