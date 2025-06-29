@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  selenium-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: selenium-test-runner
+    volumes:
+      - ./tests:/tests
+    depends_on:
+      - web
+    networks:
+      - devops-net
+
+  web:
+    build:
+      context: ./app
+    container_name: web-app
+    ports:
+      - "5173:5173"
+    networks:
+      - devops-net
+    command: ["npm", "run", "dev"]
+
+networks:
+  devops-net:
+    driver: bridge
