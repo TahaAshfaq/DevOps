@@ -34,6 +34,7 @@ pipeline {
             sh 'docker system prune -af || true'
             sh 'docker volume prune -f || true'
             sh 'docker-compose -p $PROJECT_NAME -f Dockercomposetest.yml up -d --build'
+            sh 'docker-compose -p $PROJECT_NAME -f Dockercomposetest.yml down -v --remove-orphans || true'
         }
       }
     }
@@ -45,7 +46,6 @@ pipeline {
             sh 'docker system prune -af || true'
             sh 'docker volume prune -f || true'
             sh 'docker-compose -p $PROJECT_NAME -f docker-compose.yml up -d --build'
-            sh 'docker-compose -p $PROJECT_NAME -f docker-compose.yml down -v --remove-orphans || true'
         }
       }
     }
