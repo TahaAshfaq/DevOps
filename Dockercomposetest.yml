@@ -14,7 +14,7 @@ services:
       backend:
         condition: service_healthy
       mongodb:
-        condition: service_healthy
+        condition: service_started
     networks:
       - devops-net
 
@@ -59,7 +59,7 @@ services:
     restart: on-failure
     depends_on:
       mongodb:
-        condition: service_healthy
+        condition: service_started
 
   mongodb:
     image: mongo:6.0
@@ -68,11 +68,6 @@ services:
       - "27017:27017"
     networks:
       - devops-net
-    healthcheck:
-      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/localhost/27017"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
     restart: on-failure
 
 networks:
