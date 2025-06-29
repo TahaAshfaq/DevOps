@@ -296,11 +296,12 @@ def test_back_navigation():
     try:
         driver.get(APP_URL)
         time.sleep(2)
-        driver.get("http://52.3.59.229:5173/anotherpage")  # Replace with actual page
+        # Replace '/anotherpage' with a real route from your app
+        driver.get(APP_URL + "/anotherpage")  # TODO: Replace with actual page
         time.sleep(2)
         driver.back()
         time.sleep(2)
-        assert "Vite + React" in driver.title
+        assert "Vite + React" in driver.title  # TODO: Replace with your app's title
         print("Test 9 Passed: Back navigation successful.")
     except Exception as e:
         print(f"Test 9 Failed: Back navigation failed. Error: {e}")
@@ -311,7 +312,7 @@ def test_multiple_tabs():
     driver = setup_driver()
     try:
         driver.get(APP_URL)
-        driver.execute_script("window.open('http://52.3.59.229:5173', '_blank');")
+        driver.execute_script(f"window.open('{APP_URL}', '_blank');")
         time.sleep(2)
         assert len(driver.window_handles) == 2
         print("Test 10 Passed: Multiple tabs handled.")
