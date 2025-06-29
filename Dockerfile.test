@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     && rm -rf /var/lib/apt/lists/*
+##TAHA
 
 # Set Chrome binary path
 ENV CHROME_BIN=/usr/bin/chromium
