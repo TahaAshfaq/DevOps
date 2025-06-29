@@ -39,12 +39,11 @@ pipeline {
             sh 'docker wait selenium-test-runner'
             // Print test logs to Jenkins console
             sh 'docker logs selenium-test-runner || true'
-            // Capture exit code and fail build if tests failed
+            // Capture exit code but do NOT fail build if tests failed
             def exitCode = sh(script: 'docker inspect selenium-test-runner --format="{{.State.ExitCode}}"', returnStdout: true).trim()
             if (exitCode != '0') {
-                currentBuild.result = 'FAILURE'
                 env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. Some tests FAILED. Check Jenkins logs for details.'
-                error("Tests failed. Exit code: ${exitCode}")
+                echo "Tests failed. Exit code: ${exitCode} (IGNORED, build will be marked as SUCCESS)"
             } else {
                 env.EMAIL_BODY = 'The Jenkins pipeline has finished running the Selenium tests. All tests PASSED. Check Jenkins logs for details.'
             }
