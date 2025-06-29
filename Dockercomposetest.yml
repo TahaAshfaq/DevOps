@@ -10,9 +10,9 @@ services:
       - ./tests:/tests
     depends_on:
       web:
-        condition: service_healthy
+        condition: service_started
       backend:
-        condition: service_healthy
+        condition: service_started
       mongodb:
         condition: service_started
     networks:
@@ -29,14 +29,9 @@ services:
     command: ["npm", "run", "dev"]
     environment:
       - VITE_API_URL=http://backend:2000
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5173"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
     depends_on:
       backend:
-        condition: service_healthy
+        condition: service_started
 
   backend:
     build:
@@ -51,11 +46,6 @@ services:
     environment:
       - PORT=2000
       - MONGODB_URI=mongodb://mongodb:27017/devops
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
     restart: on-failure
     depends_on:
       mongodb:
