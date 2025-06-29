@@ -162,6 +162,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
 
+APP_URL = "http://web:5173"
+
 def setup_driver():
     options = Options()
     options.headless = True
@@ -173,8 +175,9 @@ def setup_driver():
 def test_homepage_loads():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
+        print("Page title:", driver.title)
         assert "Vite + React" in driver.title
         print("Test 1 Passed: Homepage loads successfully.")
     except Exception as e:
@@ -185,8 +188,9 @@ def test_homepage_loads():
 def test_navigation_to_about():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
+        print("Page source:", driver.page_source)
         about_link = driver.find_element(By.LINK_TEXT, "About")
         about_link.click()
         time.sleep(2)
@@ -200,7 +204,7 @@ def test_navigation_to_about():
 def test_button_click():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         button = driver.find_element(By.TAG_NAME, "button")
         button.click()
@@ -215,7 +219,7 @@ def test_button_click():
 def test_input_field():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         input_box = driver.find_element(By.TAG_NAME, "input")
         input_box.send_keys("Test Input")
@@ -230,7 +234,7 @@ def test_input_field():
 def test_form_submission():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         input_box = driver.find_element(By.TAG_NAME, "input")
         input_box.send_keys("Sample Data")
@@ -247,7 +251,7 @@ def test_form_submission():
 def test_database_insertion():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         # Submit form or action that inserts into DB
         # This is a placeholder, adjust as needed
@@ -261,7 +265,7 @@ def test_database_insertion():
 def test_error_message():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         submit_button = driver.find_element(By.TAG_NAME, "button")
         submit_button.click()
@@ -276,7 +280,7 @@ def test_error_message():
 def test_page_refresh():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         driver.refresh()
         time.sleep(2)
@@ -290,7 +294,7 @@ def test_page_refresh():
 def test_back_navigation():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         time.sleep(2)
         driver.get("http://52.3.59.229:5173/anotherpage")  # Replace with actual page
         time.sleep(2)
@@ -306,7 +310,7 @@ def test_back_navigation():
 def test_multiple_tabs():
     driver = setup_driver()
     try:
-        driver.get("http://52.3.59.229:5173")
+        driver.get(APP_URL)
         driver.execute_script("window.open('http://52.3.59.229:5173', '_blank');")
         time.sleep(2)
         assert len(driver.window_handles) == 2
