@@ -14,7 +14,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Install Python dependencies
-RUN pip install selenium
+RUN pip install selenium requests
 
 # Copy test scripts
 COPY ./tests /tests
@@ -22,5 +22,5 @@ COPY ./tests /tests
 # Set working directory
 WORKDIR /tests
 
-# Command to run tests
-CMD ["python3", "test_homepage.py"]
+# Wait for web and run tests
+CMD ["python3", "wait_for_web.py"]
