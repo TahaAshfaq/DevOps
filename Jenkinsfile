@@ -14,6 +14,17 @@ pipeline {
       }
     }
     
+    stage('Test') {
+      steps {
+        script {
+            sh 'docker-compose -p $PROJECT_NAME -f Dockercomposetest.yml down -v --remove-orphans || true'
+            sh 'docker system prune -af || true'
+            sh 'docker volume prune -f || true'
+            sh 'docker-compose -p $PROJECT_NAME -f Dockercomposetest.yml up -d --build'
+        }
+      }
+    }
+    
     stage('Build and Deploy') {
       steps {
         script {
@@ -25,7 +36,15 @@ pipeline {
       }
     }
 
+
   }
+  post {
+        always {
+            mail to: "${GIT_COMMITTER_EMAIL}",
+                 subject: "DevOps Selenium Test Results",
+                 body: "The Jenkins pipeline has finished running the Selenium tests. Check Jenkins logs for details."
+        }
+    }
 }
 
 
