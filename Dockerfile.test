@@ -15,4 +15,4 @@ COPY ./tests /tests
 WORKDIR /tests
 
 # Command to run tests
-CMD ["python3", "test_app.py"]
+CMD ["python3", "test_homepage.py"]
