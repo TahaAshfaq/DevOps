@@ -9,7 +9,10 @@ services:
     volumes:
       - ./tests:/tests
     depends_on:
-      - web
+      web:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
     networks:
       - devops-net
 
@@ -23,7 +26,28 @@ services:
       - devops-net
     command: ["npm", "run", "dev"]
     environment:
-      - VITE_API_URL=http://web:2000
+      - VITE_API_URL=http://backend:2000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: backend-app
+    ports:
+      - "2000:2000"
+    networks:
+      - devops-net
+    command: ["npm", "run", "start"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
 networks:
   devops-net:
